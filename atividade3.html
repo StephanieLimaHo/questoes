@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cálculo de Faturamento</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            margin-top: 50px;
+        }
+
+        .message {
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body class="bg-light">
+
+    <div class="container text-center">
+        <div class="card p-4 shadow-sm rounded">
+            <h1 class="card-title mb-4">Cálculo de Faturamento Diário</h1>
+
+            <div class="row">
+                <div class="col-6">
+                    <div id="faturamentoList" class="mb-4">
+                        <h4>Faturamento Diário:</h4>
+                            <ul id="faturamentoListUl" class="list-group">
+                            </ul>
+
+                    </div>
+                </div>
+                <div class="col-6">
+                    <button class="btn btn-primary btn-lg" onclick="calcularFaturamento()">Calcular</button>
+
+                    <div id="resultado" class="message mt-4"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        //JSON
+        const faturamentoMensal = {
+            "faturamento": [
+                { "dia": 1, "valor": 500 },
+                { "dia": 2, "valor": 600 },
+                { "dia": 3, "valor": 0 },
+                { "dia": 4, "valor": 750 },
+                { "dia": 5, "valor": 450 },
+                { "dia": 6, "valor": 0 },
+                { "dia": 7, "valor": 650 },
+                { "dia": 8, "valor": 800 },
+                { "dia": 9, "valor": 300 },
+                { "dia": 10, "valor": 0 },
+                { "dia": 11, "valor": 0 },
+                { "dia": 12, "valor": 700 }
+            ]
+        };
+        function mostrarFaturamento() {
+            const faturamentoListUl = document.getElementById('faturamentoListUl');
+            faturamentoMensal.faturamento.forEach(dia => {
+                const li = document.createElement('li');
+                li.classList.add('list-group-item');
+                li.innerHTML = `Dia ${dia.dia}: R$ ${dia.valor}`;
+                faturamentoListUl.appendChild(li);
+            });
+        }
+        mostrarFaturamento();
+
+        function calcularFaturamento() {
+            const faturamento = faturamentoMensal.faturamento;
+
+            const diasComFaturamento = faturamento.filter(dia => dia.valor > 0);
+
+            const menorValor = Math.min(...diasComFaturamento.map(dia => dia.valor));
+            const maiorValor = Math.max(...diasComFaturamento.map(dia => dia.valor));
+
+            const somaFaturamento = diasComFaturamento.reduce((total, dia) => total + dia.valor, 0);
+            const mediaFaturamento = somaFaturamento / diasComFaturamento.length;
+
+            const diasAcimaDaMedia = diasComFaturamento.filter(dia => dia.valor > mediaFaturamento).length;
+
+            const resultado = document.getElementById('resultado');
+            resultado.innerHTML = ` 
+        <p><strong>Menor:</strong> R$ ${menorValor}</p>
+        <p><strong>Maior:</strong> R$ ${maiorValor}</p>
+        <p><strong>Dias com faturamento superior à média:</strong> ${diasAcimaDaMedia} dias</p>
+      `;
+        }
+    </script>
+
+</body>
+
+</html>

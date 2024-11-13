@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Percentual</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .container {
+      margin-top: 50px;
+    }
+    .message {
+      font-weight: bold;
+    }
+    .card-title {
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body class="bg-light">
+
+  <div class="container text-center">
+    <div class="card p-4 shadow-sm rounded">
+        <h1 class="card-title mb-4">Percentual de Faturamento por Estado</h1>
+        <div class="row">
+        <div class="col-6">
+
+            <ul>
+                <li>SP – R$67.836,43</li>
+                <li>RJ – R$36.678,66</li>
+                <li>MG – R$29.229,88</li>
+                <li>ES – R$27.165,48</li>
+                <li>Outros – R$19.849,53</li>
+            </ul>
+            <button class="btn btn-primary btn-lg" onclick="calcularPercentuais()">Calcular</button>
+        </div>
+        <div class="col-6">
+            
+            <div id="resultado" class="message mt-4"></div>
+        </div>
+        </div>
+      
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script>
+    const faturamentoMensal = {
+      "SP": 67836.43,
+      "RJ": 36678.66,
+      "MG": 29229.88,
+      "ES": 27165.48,
+      "Outros": 19849.53
+    };
+
+    function calcularPercentuais() {
+      const totalFaturamento = Object.values(faturamentoMensal).reduce((total, valor) => total + valor, 0);
+      const resultados = [];
+      for (const estado in faturamentoMensal) {
+        const percentual = (faturamentoMensal[estado] / totalFaturamento) * 100;
+        resultados.push(`${estado}: ${percentual.toFixed(2)}%`);
+      }
+
+      const resultadoDiv = document.getElementById('resultado');
+      resultadoDiv.innerHTML = `
+        <p><strong>Faturamento Total:</strong> R$ ${totalFaturamento.toFixed(2)}</p>
+        <ul class="list-group">
+          ${resultados.map(item => `<li class="list-group-item">${item}</li>`).join('')}
+        </ul>
+      `;
+    }
+  </script>
+
+</body>
+</html>

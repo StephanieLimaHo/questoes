@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inverter String</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .container {
+      margin-top: 50px;
+    }
+    .card-title {
+      font-size: 18px;
+    }
+    .message {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body class="bg-light">
+
+  <div class="container text-center">
+    <div class="row">
+    <div class="card p-4 shadow-sm rounded">
+      <h1 class="card-title mb-4">Inverter</h1>
+      
+      <div class="form-group">
+        <label for="inputString">Digite uma string:</label>
+        <input type="text" class="form-control" id="inputString" placeholder="Digite a string aqui">
+      </div>
+
+      <button class="btn btn-primary btn-lg" onclick="inverterString()">Inverter</button>
+
+      <div id="resultado" class="message mt-4"></div>
+    </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script>
+    function inverterString() {
+      const input = document.getElementById('inputString').value;
+      
+      let resultado = '';
+      for (let i = input.length - 1; i >= 0; i--) {
+        resultado += input[i];
+      }
+      
+      const resultadoDiv = document.getElementById('resultado');
+      resultadoDiv.innerHTML = `Resultado: ${resultado}`;
+    }
+  </script>
+
+</body>
+</html>

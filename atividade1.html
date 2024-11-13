@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Soma</title>
+</head>
+<body>
+  <div class="container">
+    <h1>Resultado:</h1>
+    <div id="resultado"></div>
+  </div>
+
+  <script>
+    let INDICE = 13;
+    let SOMA = 0;
+    let K = 0;
+
+    while (K < INDICE) {
+      K = K + 1;
+      SOMA = SOMA + K;
+    }
+
+    document.getElementById('resultado').textContent = SOMA;
+  </script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sequência de Fibonacci</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .container {
+      margin-top: 50px;
+    }
+
+    .card-title {
+      font-size: 18px;
+    }
+
+    .message {
+      font-weight: bold;
+    }
+
+    .valid {
+      color: #28a745;
+    }
+
+    .invalid {
+      color: #dc3545;
+    }
+  </style>
+</head>
+
+<body class="bg-light">
+
+  <div class="container text-center">
+    <div class="row">
+      <div class="card p-4 shadow-sm rounded">
+        <h1 class="card-title mb-4">Sequência de Fibonacci</h1>
+
+        <div class="form-group">
+          <label for="numeroInput">Informe um número para análise:</label>
+          <input type="number" class="form-control" id="numeroInput" placeholder="Digite um número">
+          <div id="resultado" class="message mt-4"></div>
+        </div>
+
+        <button class="btn btn-primary" onclick="verificarFibonacci()">Verificar</button>
+
+
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script>
+    function verificarFibonacci() {
+      let numero = parseInt(document.getElementById('numeroInput').value);
+      let fib1 = 0;
+      let fib2 = 1;
+      let fib = [fib1, fib2];
+
+      while (fib2 < numero) {
+        fib.push(fib1 + fib2);
+        fib1 = fib2;
+        fib2 = fib[fib.length - 1];
+      }
+
+      let resultado = document.getElementById('resultado');
+      if (fib.includes(numero)) {
+        resultado.textContent = `Pertence à sequência de Fibonacci.`;
+        resultado.classList.add('valid');
+        resultado.classList.remove('invalid');
+      } else {
+        resultado.textContent = `Não pertence à sequência de Fibonacci.`;
+        resultado.classList.add('invalid');
+        resultado.classList.remove('valid');
+      }
+    }
+  </script>
+
+</body>
+
+</html>
